@@ -1,5 +1,5 @@
-import SearchBar from './components/SearchBar';
-import GuestModal from './components/GuestModal';
+import SearchBar from './components/SearchBar/SearchBar';
+import GuestModal from './components/GuestModal/GuestModal';
 
 function App() {
   return (

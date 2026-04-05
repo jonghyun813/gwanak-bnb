@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import GuestCounter from './GuestCounter';
+import GuestCounter from '../GuestCounter/GuestCounter';
 import './GuestModal.css';
 
 function GuestModal() {
