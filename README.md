@@ -1,3 +1,1 @@
-# gwanak-bnb
-
-test
+Gwanak BnB
