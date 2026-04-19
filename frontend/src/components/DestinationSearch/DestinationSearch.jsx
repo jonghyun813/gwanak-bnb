@@ -3,9 +3,14 @@ import './DestinationSearch.css';
 
 const recommendedDestinations = [
   {
-    icon: '📍',
-    name: '근처 체험 찾기',
-    description: '가까운 곳에서 즐길 수 있는 체험을 찾아보세요.',
+    icon: '🏡',
+    name: '서귀포시',
+    description: '제주 남쪽의 감성 숙소',
+  },
+  {
+    icon: '🌿',
+    name: '제주시',
+    description: '제주 북쪽의 인기 숙소',
   },
   {
     icon: '🏖️',
@@ -39,11 +44,10 @@ const recommendedDestinations = [
   },
 ];
 
-function DestinationSearch() {
+function DestinationSearch({ selectedDestination, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [inputValue, setInputValue] = useState('');
-  const [selectedDestination, setSelectedDestination] = useState('');
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const containerRef = useRef(null);
   const listRef = useRef(null);
@@ -65,10 +69,6 @@ function DestinationSearch() {
     : recommendedDestinations;
 
   useEffect(() => {
-    setHighlightIndex(-1);
-  }, [query]);
-
-  useEffect(() => {
     if (highlightIndex >= 0 && listRef.current) {
       const items = listRef.current.querySelectorAll('.destination-item');
       items[highlightIndex]?.scrollIntoView({ block: 'nearest' });
@@ -79,6 +79,7 @@ function DestinationSearch() {
     const value = e.target.value;
     setQuery(value);
     setInputValue(value);
+    setHighlightIndex(-1);
   }
 
   function handleKeyDown(e) {
@@ -102,7 +103,7 @@ function DestinationSearch() {
   }
 
   function handleSelect(destination) {
-    setSelectedDestination(destination.name);
+    onSelect(destination.name);
     setQuery('');
     setInputValue('');
     setHighlightIndex(-1);
@@ -112,6 +113,7 @@ function DestinationSearch() {
   return (
     <div className="destination-search" ref={containerRef}>
       <button
+        type="button"
         className={`destination-trigger ${isOpen ? 'active' : ''}`}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -137,6 +139,7 @@ function DestinationSearch() {
             <h4 className="destination-list-title">추천 여행지</h4>
             {filteredDestinations.map((dest, index) => (
               <button
+                type="button"
                 key={dest.name}
                 className={`destination-item ${index === highlightIndex ? 'highlighted' : ''}`}
                 onClick={() => handleSelect(dest)}

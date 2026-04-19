@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import GuestCounter from '../GuestCounter/GuestCounter';
 import './GuestModal.css';
 
-function GuestModal() {
-  const [guests, setGuests] = useState({
-    adult: 0,
-    child: 0,
-    infant: 0,
-    pet: 0,
-  });
-
+function GuestModal({ guests, onGuestsChange }) {
   const updateCount = (type, delta) => {
-    setGuests((prev) => ({
+    onGuestsChange((prev) => ({
       ...prev,
       [type]: Math.max(0, prev[type] + delta),
     }));
